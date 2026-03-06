@@ -1,5 +1,5 @@
 import { assertEqual } from '../build/utils.test.ts';
-import './main.ts';
+import Throttler from './main.ts';
 
 // Type testing
 (async () => {
@@ -18,10 +18,12 @@ import './main.ts';
   const cases = [
     
     {
-      name: 'todo',
+      name: 'basic case',
       fn: async () => {
         
-        throw Error('not implemented');
+        const throttler = new Throttler(3);
+        const result = await throttler.do(async () => 'hi');
+        assertEqual(result, 'hi');
         
       }
     }
