@@ -1,4 +1,4 @@
-import { assertEqual } from '../build/utils.test.ts';
+import { assertEqual, testRunner } from '../build/utils.test.ts';
 import Throttler from './main.ts';
 
 // Type testing
@@ -12,38 +12,17 @@ import Throttler from './main.ts';
   
 })();
 
-// Test cases
-(async () => {
+testRunner([
   
-  const cases = [
-    
-    {
-      name: 'basic case',
-      fn: async () => {
-        
-        const throttler = new Throttler(3);
-        const result = await throttler.do(async () => 'hi');
-        assertEqual(result, 'hi');
-        
-      }
-    }
-    
-  ];
-  for (const { name, fn } of cases) {
-    
-    try {
+  {
+    name: 'basic case',
+    fn: async () => {
       
-      await fn();
-      
-    } catch (err: any) {
-      
-      console.log(`FAILED: "${name}"`, err[limn]());
-      process.exit(1);
+      const throttler = new Throttler(3);
+      const result = await throttler.do(async () => 'hi');
+      assertEqual(result, 'hi');
       
     }
-    
   }
   
-  console.log(`Passed ${cases.length} test${cases.length === 1 ? '' : 's'}`);
-  
-})();
+]);
