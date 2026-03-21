@@ -8,8 +8,8 @@ export default class Throttler {
   private pending: { prm: PromiseLater<any>, fn: () => Promise<any> }[];
   
   constructor(limit: number) {
-    if (limit < 1)                   throw Error('limit too low')[mod]({ limit });
-    if (Math.floor(limit) !== limit) throw Error('limit invalid')[mod]({ limit });
+    if (limit < 1)                   throw Error('limit too low')[cl.mod]({ limit });
+    if (Math.floor(limit) !== limit) throw Error('limit invalid')[cl.mod]({ limit });
     this.limit = limit;
     this.active = new Set();
     this.pending = [];
@@ -17,7 +17,7 @@ export default class Throttler {
   
   private finish(donePrm) {
     
-    this.active[rem](donePrm);
+    this.active[cl.rem](donePrm);
     const next = this.pending.shift();
     if (!next) return;
     
@@ -37,7 +37,7 @@ export default class Throttler {
       
     }
     
-    const prm = Promise[later]<T>();
+    const prm = Promise[cl.later]<T>();
     this.pending.push({ prm, fn });
     return prm;
     
