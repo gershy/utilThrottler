@@ -3,9 +3,9 @@ import '@gershy/clearing';
 // TODO: @gershy/throttler
 export default class Throttler {
   
-  private limit: number;
-  private active: Set<any>;
-  private pending: { prm: PromiseLater<any>, fn: () => Promise<any> }[];
+  protected limit: number;
+  protected active: Set<any>;
+  protected pending: { prm: PromiseLater<any>, fn: () => Promise<any> }[];
   
   constructor(limit: number) {
     if (limit < 1)                   throw Error('limit too low')[cl.mod]({ limit });
@@ -15,7 +15,7 @@ export default class Throttler {
     this.pending = [];
   }
   
-  private finish(donePrm) {
+  protected finish(donePrm) {
     
     this.active[cl.rem](donePrm);
     const next = this.pending.shift();
